@@ -1,0 +1,9 @@
+---
+# Percona repository
+repository_file: percona-release_latest.focal_all.deb
+repository_file_url: "https://repo.percona.com/apt/{{ repository_file }}"
+repository_file_local_dest: "/tmp/{{ repository_file }}"
+
+# Percona server package:
+percona_package_name: percona-server-server
+percona_package_version: "{{ percona_package_name }}-{{ percona_version }}"

@@ -1,0 +1,44 @@
+---
+- name: Fetch the repository packages from Percona web
+  get_url:
+    url:  '{{ repository_file_url }}'
+    dest: '{{ repository_file_local_dest }}'
+
+- name: Install the repository downloaded package
+  apt:
+    deb: '{{ repository_file_local_dest }}'
+
+- name: Update apt cache
+  apt:
+    update_cache: "yes"
+
+- name: Installing Percona v{{ percona_version }}
+  apt:
+    name:   '{{ percona_package_version }}'
+    state:  present
+
+- name: Move Percona MySQL data directory
+  when: packer_build_name is defined and packer_build_name == "ubuntu-focal-ebs"
+  block:
+
+  - name: Create an ext4 filesystem on {{ percona_ebs_volume }}
+    shell: 'mkfs.ext4 -L {{ percona_ebs_volume_label }} {{ percona_ebs_volume }}'
+
+  - name: Create Percona MySQL {{ percona_ebs_volume_directory }} data directory
+    file:
+      path:   '{{ percona_ebs_volume_directory }}'
+      state:  directory
+      mode:   '0750'
+      group:  mysql
+      owner:  mysql
+
+  - name: Mount {{ percona_ebs_volume }} into {{ percona_ebs_volume_directory }}
+    mount:
+      src:    LABEL='{{ percona_ebs_volume_label }}'
+      path:   '{{ percona_ebs_volume_directory }}'
+      fstype: ext4
+      opts:   defaults
+      dump:   '0'
+      boot:   yes
+      backup: yes
+      state:  mounted

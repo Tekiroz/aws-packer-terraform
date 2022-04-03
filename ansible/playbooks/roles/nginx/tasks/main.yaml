@@ -1,0 +1,6 @@
+---
+- name: Include {{ ansible_distribution }} specific variables
+  include_vars: "{{ ansible_distribution | lower }}.yaml"
+
+- name: Include tasks to setup {{ ansible_distribution }}
+  include_tasks: "{{ ansible_distribution | lower }}.yaml"

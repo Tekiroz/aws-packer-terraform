@@ -1,0 +1,13 @@
+---
+- name: Provision EC2 Image
+
+  # Basically, all tasks included in these roles have to run with root privileges.
+  become: true
+
+  hosts:  all
+
+  roles:
+    - role: commons
+    - role: mysql
+    - role: nginx
+    - role: ssh
