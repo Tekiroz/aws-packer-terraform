@@ -9,7 +9,7 @@ provider "aws" {
 # instances
 ##########################################
 module "ec2-nodes" {
-  source = "./modules/ec2 _instance"
+  source = "./modules/ec2_instances"
 
   environment   = var.environment
   vpc_id        = data.aws_vpc.default.id

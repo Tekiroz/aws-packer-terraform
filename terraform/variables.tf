@@ -17,7 +17,7 @@ variable "environment" {
 }
 
 ##################################
-# EC2 instances variables.tf.
+# EC2 instances variables
 ##################################
 variable  "instance_type" {
   type        = string
@@ -40,5 +40,5 @@ variable  "ec2_instances" {
     "instance-2" = { name = "ubuntu-focal-2", az = "b" },
     "instance-3" = { name = "ubuntu-focal-3", az = "c" }
   }
-  description = "Ec2 instances information."
+  description = "Map of EC2 instances to create."
 }
