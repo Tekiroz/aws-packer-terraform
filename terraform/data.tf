@@ -4,7 +4,7 @@ data "aws_vpc" "default" {
 }
 
 data "aws_subnet" "public_subnet" {
-  for_each  = var.ec2_instances
+  for_each          = var.ec2_instances
   availability_zone = "${var.region}${each.value.az}"
 }
 

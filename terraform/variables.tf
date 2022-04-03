@@ -19,21 +19,21 @@ variable "environment" {
 ##################################
 # EC2 instances variables
 ##################################
-variable  "instance_type" {
+variable "instance_type" {
   type        = string
   default     = "t2.micro"
   description = "The instance type to use for the instance (restricted to t2.micro)."
 
   validation {
-    condition = contains(["t2.micro"], var.instance_type)
+    condition     = contains(["t2.micro"], var.instance_type)
     error_message = "Var `instance_type` restricted to \"t2.micro\" (for Free Tier)."
   }
 }
 
-variable  "ec2_instances" {
-  type    = map(object({
-    name  = string,
-    az    = string,
+variable "ec2_instances" {
+  type = map(object({
+    name = string,
+    az   = string,
   }))
   default = {
     "instance-1" = { name = "ubuntu-focal-1", az = "a" },
