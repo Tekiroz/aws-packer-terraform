@@ -12,12 +12,16 @@ variable "profile" {
 
 variable "environment" {
   type        = string
-  default     = "testing"
   description = "To select the environment."
 }
 
+variable "vpc_id" {
+  type        = string
+  description = "VPC ID (Change this value will force a new resource.)"
+}
+
 ##################################
-# EC2 instances variables.tf.
+# EC2 instances variables.
 ##################################
 variable  "instance_type" {
   type        = string
@@ -30,15 +34,15 @@ variable  "instance_type" {
   }
 }
 
+variable  "ami" {
+  type        = string
+  description = "AMI to use for the instance."
+}
+
 variable  "ec2_instances" {
   type    = map(object({
-    name  = string,
-    az    = string,
+    name  = string
+    az    = string
   }))
-  default = {
-    "instance-1" = { name = "ubuntu-focal-1", az = "a" },
-    "instance-2" = { name = "ubuntu-focal-2", az = "b" },
-    "instance-3" = { name = "ubuntu-focal-3", az = "c" }
-  }
-  description = "Ec2 instances information."
+  description = "EC2 instances information (instance name and availability zone)."
 }
