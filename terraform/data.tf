@@ -11,7 +11,7 @@ data "aws_subnet" "public_subnet" {
 # AMI created with Packer
 data "aws_ami" "packer_ami" {
   owners      = ["self"]
-  name_regex  = "^aws-ami-focal-*"
+  name_regex  = "^nginx-mysql-*"
   most_recent = true
 
   filter {
@@ -23,7 +23,9 @@ data "aws_ami" "packer_ami" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
   tags = {
-    env = "learn-packer"
+    mysql-volume  = "no"
+    env           = "learn-packer"
   }
 }

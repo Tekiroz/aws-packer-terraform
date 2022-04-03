@@ -17,8 +17,10 @@
     name:   '{{ percona_package_version }}'
     state:  present
 
+# This task block will only run when Pakcer build the source "nginx-mysql-ebs".
+
 - name: Move Percona MySQL data directory
-  when: packer_build_name is defined and packer_build_name == "ubuntu-focal-ebs"
+  when: packer_build_name is defined and packer_build_name == "nginx-mysql-ebs"
   block:
 
   - name: Create an ext4 filesystem on {{ percona_ebs_volume }}
